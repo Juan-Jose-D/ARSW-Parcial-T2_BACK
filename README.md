@@ -68,6 +68,8 @@ Para ejecutar el juego ver las instrucciones del frontend:
 
 [https://github.com/Juan-Jose-D/ARSW-Parcial-T2](https://github.com/Juan-Jose-D/ARSW-Parcial-T2)
 
+El despliegue en azure no funcionó porque está caido.
+
 ## Autor
 
 Juan José Díaz Gómez
