@@ -1,6 +1,28 @@
 # ARSW - Parcial T2 Tic-tac-toe - BACK
 
-El backend funciona como un servidor que mezcla varias arquitecturas, tenemos un sistema de eventos publicador-suscriptor mediante un broker de mensajería webSocket configurado en el archivo WebSocketConfig. En este establecemos nuestro endpoint principal "/ws/tictactoe" que es el que usaremos en nuestro frontend para conectarnos via webSocket.
+El backend funciona como un servidor que mezcla varias arquitecturas, tenemos un sistema de eventos publicador-suscriptor mediante un broker de mensajería webSocket configurado en el archivo WebSocketConfig. En este establecemos nuestro endpoint principal "/ws/tictactoe" que es el que usaremos en nuestro frontend para conectarnos via webSocket, además los endpoints del broker de mesajería:
+
+
+```java
+@Configuration
+@EnableWebSocketMessageBroker
+public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
+
+    @Override
+    public void configureMessageBroker(MessageBrokerRegistry config) {
+        config.enableSimpleBroker("/topic", "/queue");
+        config.setApplicationDestinationPrefixes("/app");
+        config.setUserDestinationPrefix("/user");
+    }
+
+    @Override
+    public void registerStompEndpoints(StompEndpointRegistry registry) {
+        registry.addEndpoint("/ws/tictactoe")
+                .setAllowedOriginPatterns("*")
+                .withSockJS();
+    }
+}
+```
 
 También funcionará como un intermediario entre los dos clientes que se conectarán, recibimos mensajes de uno y lo publicamos al otro. Y así sucesivamente a lo largo del juego.
 
